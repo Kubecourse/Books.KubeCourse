@@ -1,19 +1,13 @@
 FROM node:alpine
 
-# Create app directory
-WORKDIR /src
+RUN mkdir -p /usr/src/app
 
-# Install app dependencies
-COPY package.json /src/
-COPY package-lock.json /src/
+WORKDIR /usr/src/app
+
+ADD index.js ./
+
+ADD package.json ./
 
 RUN npm install
 
-# Bundle app source
-ADD . /src
-
-RUN npm run build
-
-EXPOSE 3000
-
-CMD [ "npm", "run serve" ]
+CMD ["npm", "start"]
